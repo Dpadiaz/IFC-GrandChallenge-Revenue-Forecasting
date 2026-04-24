@@ -1,0 +1,131 @@
+WORKING NOTES & SLIDE NARRATION
+================================
+
+=== Cell: winsorization analysis ===
+1️⃣ production_value
+99% ≈ 56B
+max ≈ 604B  ❗
+
+👉 10× sopra il 99%
+
+✔ winsorize → SI
+
+2️⃣ production_costs
+99% ≈ 52B
+max ≈ 573B
+
+👉 stesso pattern
+
+✔ winsorize → SI
+
+3️⃣ total_assets
+99% ≈ 34B
+max ≈ 506B ❗
+
+👉 enorme outlier (quello che avevi visto)
+
+✔ winsorize → ASSOLUTAMENTE SI
+
+4️⃣ total_debt
+99% ≈ 21B
+max ≈ 310B
+
+✔ winsorize → SI
+
+5️⃣ current_assets
+99% ≈ 21B
+max ≈ 251B
+
+✔ winsorize → SI
+
+6️⃣ total_fixed_assets
+99% ≈ 13B
+max ≈ 254B
+
+✔ winsorize → SI
+
+7️⃣ shareholders_equity ⚠️
+min = -3.3B
+
+👉 IMPORTANTISSIMO:
+
+equity può essere negativa → normale
+
+ma valori enormi negativi → outlier
+
+✔ winsorize → SI (ma attenzione ai negativi)
+
+8️⃣ short_term_debt / long_term_debt
+
+✔ stesso pattern → winsorize
+
+9️⃣ operating_income ⚠️
+min = -2.6B
+
+👉 normale avere negativo
+👉 ma valori estremi → outlier
+
+✔ winsorize → SI
+
+🔟 net_profit_loss ⚠️
+min = -4B
+
+👉 qui ancora più importante
+
+✔ winsorize → SI
+
+1️⃣1️⃣ financial_expenses
+99% ≈ 786M
+max ≈ 9.3B
+
+✔ winsorize → SI
+
+=== Cell: map narration ===
+The map is complemented by a dynamic summary box reporting the national production value and the year-over-year regional changes, allowing us to compare both economic scale and temporal variation across regions.
+
+=== Cell: geographic slide narration ===
+In this slide, we present the geographic distribution of firms across Italy by economic sector.
+Each point represents a firm, while colors indicate the corresponding sector.
+
+To improve readability, we focus on the most represented sectors and group the remaining ones into an “Other” category.
+Additionally, a small jitter has been applied to avoid point overlap and better visualize firm density.
+
+The map clearly shows a strong geographical concentration of firms in the northern part of Italy, particularly in regions such as Lombardy, Emilia-Romagna, and Veneto. Central areas, especially Lazio, also show a relevant presence, while the South appears less densely populated in our dataset.
+
+From a sectoral perspective, we do not observe a strong spatial separation between sectors: most of them tend to coexist in the same economic hubs, rather than being strictly localized.
+
+This suggests that the dataset reflects major industrial and urban centers, where multiple economic activities are concentrated.
+
+It is important to note that some firms had missing province information, which may slightly affect the completeness of the geographic representation
+
+
+The crisis did not affect all sectors equally, highlighting how vulnerability is strongly linked to the nature of the economic activity.
+
+=== Cell: COVID aggregate narration ===
+While the aggregate production value remains relatively stable during the COVID period, sector-level analysis reveals significant heterogeneity.
+Several sectors experienced sharp contractions (e.g., Accommodation and Food Services), but these declines were offset by growth in other sectors such as Administrative Services and Wholesale Trade.
+This suggests a strong reallocation effect rather than a uniform economic downturn.
+
+=== Cell: tolerance note ===
+Con tolleranza 0.01 hai 8483 su 8829 = 96%
+Quindi circa 346 righe non sono più coerenti entro 0.01
+Anche aumentando la tolleranza:
+a 0.10 resti al 96%
+a 1.00 vai al 97%
+a 10.00 arrivi al 98%
+
+=== Cell: clipping threshold note ===
+500 → togli 1363 righe, cioè 12% del dataset: troppo aggressivo
+1000 → togli 770 righe, cioè 7%: ancora tanto
+2000 → togli 385 righe, cioè 3%: già più ragionevole
+5000 → togli 116 righe, cioè 1%: molto conservativo
+10000 → togli 44 righe: solo i casi veramente estremi
+20000 → togli 17 righe: solo gli assurdi assoluti
+
+droppo dopo aver creato le lag
+
+=== Cell: before modifications note ===
+Before modifications
+Con tolleranza 0.01 hai 8829 su 8829 = 100%
+Quindi il target revenue_change era praticamente esattamente compatibile con la formula calcolata da production_value
+
